@@ -313,7 +313,9 @@ function multi_channel_device_build_cmd_array($obj, $cmd_id, $device_name, &$cmd
 
   // $obj->cmdList has been removed when inserted.
   } else {
+    $commands = array();
     foreach ($cmd as $single_cmd) {
+      $newCommand->$sin
       
     }
   }
