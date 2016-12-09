@@ -283,18 +283,40 @@ function multi_channel_device_build_cmd_array($obj, $cmd_id, $device_name, &$cmd
 
   // keep the actual command json
   $cmd = $obj->command;
-  unset($obj->command);
-  $obj->cmd = $cmd;
+  // Old way: Only one command one time
+  // unset($obj->command);
+  // $obj->cmd = $cmd;
 
-  // keep channel
-  $chan = $obj->cmd->channel;
-  unset($obj->cmd->channel);
-  $obj->cmd->chan = $chan;
+  // // keep channel
+  // $chan = $obj->cmd->channel;
+  // unset($obj->cmd->channel);
+  // $obj->cmd->chan = $chan;
 
-  // description becomes action
-  $action = $obj->cmd->description;
-  unset($obj->cmd->description);
-  $obj->cmd->act = $action;
+  // // description becomes action
+  // $action = $obj->cmd->description;
+  // unset($obj->cmd->description);
+  // $obj->cmd->act = $action;
+
+  if (!is_array($cmd)) {
+    unset($obj->command);
+    $obj->cmd = $cmd;
+
+    // keep channel
+    $chan = $obj->cmd->channel;
+    unset($obj->cmd->channel);
+    $obj->cmd->chan = $chan;
+
+    // description becomes action
+    $action = $obj->cmd->description;
+    unset($obj->cmd->description);
+    $obj->cmd->act = $action;
+
+  // $obj->cmdList has been removed when inserted.
+  } else {
+    foreach ($cmd as $single_cmd) {
+      
+    }
+  }
 
 	unset($obj->cmd->cmdList);
 
@@ -319,21 +341,7 @@ function generic_output_build_cmd_array($obj, $cmd_id, $device_name, &$cmd_array
   // keep the actual command json
   $cmd = $obj->command;
 
-    // Old way: Only one command one time
-    // unset($obj->command);
-    // $obj->cmd = $cmd;
-
-    // // keep channel
-    // $chan = $obj->cmd->channel;
-    // unset($obj->cmd->channel);
-    // $obj->cmd->chan = $chan;
-
-    // // description becomes action
-    // $action = $obj->cmd->description;
-    // unset($obj->cmd->description);
-    // $obj->cmd->act = $action;
-
-  if (!is_array($cmd)) {
+    
     unset($obj->command);
     $obj->cmd = $cmd;
 
@@ -347,8 +355,7 @@ function generic_output_build_cmd_array($obj, $cmd_id, $device_name, &$cmd_array
     unset($obj->cmd->description);
     $obj->cmd->act = $action;
 
-  // $obj->cmdList has been removed when inserted.
-  }
+  
 
   
 
