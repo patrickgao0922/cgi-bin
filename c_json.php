@@ -316,7 +316,7 @@ function multi_channel_device_build_cmd_array($obj, $cmd_id, $device_name, &$cmd
   // $obj->cmdList has been removed when inserted.
   } else { // Group Channeling
     $mul_chan_commands_array = array();
-    foreach ($cmd as $single_cmd) {
+    foreach ($cmd as &$single_cmd) {
       
       $single_mul_chan_command->chan = $single_cmd->channel;
 
