@@ -298,10 +298,11 @@ function multi_channel_device_build_cmd_array($obj, $cmd_id, $device_name, &$cmd
   // $obj->cmd->act = $action;
 
   // If command is not a arrya: on single command
+  $obj->cmd = new StdClass;
   unset($obj->command);
   if (!is_array($cmd)) {
     
-    $obj->cmd = $cmd;
+    // $obj->cmd = $cmd;
 
     // keep channel
     $chan = $obj->cmd->channel;
@@ -315,9 +316,10 @@ function multi_channel_device_build_cmd_array($obj, $cmd_id, $device_name, &$cmd
 
   // $obj->cmdList has been removed when inserted.
   } else { // Group Channeling
+    // $obj->cmd = $cmd;
     $mul_chan_commands_array = array();
     foreach ($cmd as &$single_cmd) {
-      
+      $single_mul_chan_command = new StdClass;
       $single_mul_chan_command->chan = $single_cmd->channel;
 
       $single_mul_chan_command->act = $single_cmd->description;
@@ -325,7 +327,7 @@ function multi_channel_device_build_cmd_array($obj, $cmd_id, $device_name, &$cmd
       array_push($mul_chan_commands_array, $single_mul_chan_command);
       
     }
-    $obj->cmd = $mul_chan_commands_array;
+    $obj->cmd->subcmd = $mul_chan_commands_array;
   }
 
 	unset($obj->cmd->cmdList);
